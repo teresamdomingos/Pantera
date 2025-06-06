@@ -11,8 +11,6 @@ class Jogador(models.Model):
 class Clube(models.Model):
     nome = models.CharField(max_length=5)
     nome_completo = models.CharField(max_length=200)
-    disciplina = models.ManyToManyField(Disciplina)
-    diretor_turma = models.OneToOneField("Professor", on_delete=models.SET_NULL, null=True, blank=True, related_name="turma_diretor")
     local = models.CharField(max_length=500)
 
 
