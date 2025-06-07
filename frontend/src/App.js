@@ -5,6 +5,8 @@ import Atletas from "./templates/Atletas";
 import Home from "./templates/Home";
 import Navbar from "./templates/Navbar";
 import NovoJogo from "./templates/NovoJogo";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
