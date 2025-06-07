@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import NovoClube from './NovoClube';
 
 function App() {
   const [jogadores, setJogadores] = useState([]);
@@ -33,6 +34,7 @@ function App() {
           </li>
         ))}
       </ul>
+      <NovoClube />
     </div>
   );
 }

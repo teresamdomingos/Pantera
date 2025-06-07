@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Jogador, Jogo
+from .models import Jogador, Jogo, Clube
 
 class JogadorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,3 +16,9 @@ class JogoSerializer(serializers.ModelSerializer):
 
     def get_local(self, obj):
         return obj.local  # Isto usa a property definida no model
+    
+
+class ClubeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Clube
+        fields = '__all__'
