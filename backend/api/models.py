@@ -54,6 +54,7 @@ class Jogo (models.Model):
     data = models.DateField(blank=True, null=True)
     equipa_casa = models.ForeignKey(Equipa, on_delete=models.CASCADE, related_name="jogos_em_casa")
     equipa_fora = models.ForeignKey(Equipa, on_delete=models.CASCADE, related_name="jogos_fora")
+    vencedor = models.ForeignKey(Equipa, on_delete=models.SET_NULL, null=True, blank=True, related_name="vitorias")
     
     def __str__(self):
         return f"{self.equipa_casa.nome} - {self.equipa_fora.nome}"
