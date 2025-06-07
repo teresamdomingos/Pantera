@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Jogador,  Jogo, Clube
-from .serializers import JogadorSerializer, JogoSerializer, ClubeSerializer
+from .models import Atleta,  Jogo, Clube
+from .serializers import AtletaSerializer, JogoSerializer, ClubeSerializer
 
-class JogadorListCreate(generics.ListCreateAPIView):
-    queryset = Jogador.objects.all()
-    serializer_class = JogadorSerializer
+class AtletaListCreate(generics.ListCreateAPIView):
+    queryset = Atleta.objects.all()
+    serializer_class = AtletaSerializer
 
 class JogoListCreate(generics.ListCreateAPIView):
     queryset = Jogo.objects.all()

@@ -1,41 +1,28 @@
-import { useEffect, useState } from "react";
-import NovoClube from './NovoClube';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Jogos from "./Jogos";
+import Equipas from "./Equipas";
+import Atletas from "./Atletas";
+import Home from "./Home";
 
 function App() {
-  const [jogadores, setJogadores] = useState([]);
-  const [jogos, setJogos] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/api/jogadores/")
-      .then(res => res.json())
-      .then(data => setJogadores(data));
-  }, []);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/api/jogos/")
-      .then(res => res.json())
-      .then(data => setJogos(data));
-  }, []);
-
   return (
-    <div>
-      <h1>Jogadores</h1>
-      <ul>
-        {jogadores.map(j => (
-          <li key={j.id}>{j.nome} - {j.pontuacao}</li>
-        ))}
-      </ul>
+    <Router>
+      <div>
+        <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
+          <Link to="/" style={{ margin: '0 1rem' }}>Início</Link>
+          <Link to="/jogos" style={{ margin: '0 1rem' }}>Jogos</Link>
+          <Link to="/equipas" style={{ margin: '0 1rem' }}>Equipas</Link>
+          <Link to="/atletas" style={{ margin: '0 1rem' }}>Atletas</Link>
+        </nav>
 
-      <h1>Jogos</h1>
-      <ul>
-        {jogos.map(j => (
-          <li key={j.id}>
-            {j.data} | Equipa Casa: {j.equipa_casa} | Equipa Fora: {j.equipa_fora} | Local: {j.local}
-          </li>
-        ))}
-      </ul>
-      <NovoClube />
-    </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/jogos" element={<Jogos />} />
+          <Route path="/equipas" element={<Equipas />} />
+          <Route path="/atletas" element={<Atletas />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

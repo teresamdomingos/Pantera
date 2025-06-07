@@ -1,11 +1,12 @@
 from rest_framework import serializers
-from .models import Jogador, Jogo, Clube
+from .models import Atleta, Jogo, Clube
 
-class JogadorSerializer(serializers.ModelSerializer):
+class AtletaSerializer(serializers.ModelSerializer):
+    clube_nome = serializers.CharField(source='clube.nome', read_only=True)
+    equipa_letra = serializers.CharField(source='equipa.letra', read_only=True)
     class Meta:
-        model = Jogador
-        fields = '__all__'
-
+        model = Atleta
+        fields = ['id', 'nome', 'apelido', 'numero_camisola', 'clube', 'clube_nome', 'equipa_letra']
 
 class JogoSerializer(serializers.ModelSerializer):
     local = serializers.SerializerMethodField()
