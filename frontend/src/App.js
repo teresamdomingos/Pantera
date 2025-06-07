@@ -3,23 +3,19 @@ import Jogos from "./Jogos";
 import Equipas from "./Equipas";
 import Atletas from "./Atletas";
 import Home from "./Home";
+import Navbar from "./Navbar";
 
 function App() {
   return (
     <Router>
-      <div>
-        <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
-          <Link to="/" style={{ margin: '0 1rem' }}>Início</Link>
-          <Link to="/jogos" style={{ margin: '0 1rem' }}>Jogos</Link>
-          <Link to="/equipas" style={{ margin: '0 1rem' }}>Equipas</Link>
-          <Link to="/atletas" style={{ margin: '0 1rem' }}>Atletas</Link>
-        </nav>
-
+      <Navbar />
+      <div style={{ padding: "1rem" }}>
         <Routes>
-          <Route path="/" element={<Home />} />
+           <Route path="/" element={<Home />} />
           <Route path="/jogos" element={<Jogos />} />
           <Route path="/equipas" element={<Equipas />} />
           <Route path="/atletas" element={<Atletas />} />
+          {/* Podes adicionar rota para "/" com uma homepage se quiseres */}
         </Routes>
       </div>
     </Router>

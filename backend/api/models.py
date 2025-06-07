@@ -31,8 +31,23 @@ class Atleta_Equipa(models.Model):
     atleta = models.ForeignKey(Atleta, on_delete=models.CASCADE)
     equipa = models.ForeignKey(Equipa, on_delete=models.CASCADE)
 
+    def clean(self):
+        # Se a equipa não tem clube ou atleta não tem clube, erro
+        if not self.equipa.clube:
+            raise ValidationError("A equipa deve estar associada a um clube.")
+        if not self.atleta.clube:
+            raise ValidationError("O atleta deve estar associado a um clube antes de entrar numa equipa.")
+        # Também podes validar se clube do atleta e clube da equipa são iguais, se quiseres:
+        if self.atleta.clube != self.equipa.clube:
+            raise ValidationError("O clube do atleta e da equipa devem ser o mesmo.")
+
+    def save(self, *args, **kwargs):
+        self.clean()  # Garante que valida ao guardar
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.equipa.nome} {self.atleta.nome}"
+    
 
 class Jogo (models.Model):
     data = models.DateField(blank=True, null=True)

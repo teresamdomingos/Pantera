@@ -1,12 +1,19 @@
 from rest_framework import serializers
-from .models import Atleta, Jogo, Clube
+from .models import Clube, Equipa, Atleta, Jogo, Pontuacao_Jogo, Cesto, Atletas_Jogo, Atleta_Equipa
 
 class AtletaSerializer(serializers.ModelSerializer):
     clube_nome = serializers.CharField(source='clube.nome', read_only=True)
-    equipa_letra = serializers.CharField(source='equipa.letra', read_only=True)
+    equipa_letras = serializers.SerializerMethodField()
+
     class Meta:
         model = Atleta
-        fields = ['id', 'nome', 'apelido', 'numero_camisola', 'clube', 'clube_nome', 'equipa_letra']
+        fields = ['id', 'nome', 'apelido', 'numero_camisola', 'clube', 'clube_nome', 'equipa_letras']
+
+    def get_equipa_letras(self, obj):
+        # Vai buscar todas as letras das equipas a que este atleta pertence
+        equipas = Atleta_Equipa.objects.filter(atleta=obj).select_related('equipa')
+        return [ae.equipa.letra for ae in equipas if ae.equipa]
+    
 
 class JogoSerializer(serializers.ModelSerializer):
     local = serializers.SerializerMethodField()

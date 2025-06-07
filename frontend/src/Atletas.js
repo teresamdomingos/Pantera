@@ -15,7 +15,7 @@ export default function Atletas() {
       <ul>
         {atletas.map(a => (
           <li key={a.id}>
-            {a.nome} {a.apelido} - Nº {a.numero_camisola} - Clube: {a.clube_nome || "Sem clube"} {a.equipa_letra || "Sem"}
+            {a.nome} {a.apelido} - Nº {a.numero_camisola} - Clube: {a.clube_nome || "Sem clube"} - Equipa(s): {a.equipa_letras?.join(", ") || "Sem equipa"}
           </li>
         ))}
       </ul>
