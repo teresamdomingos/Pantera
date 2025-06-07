@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
-import logo from "./logo.jpg"; // caminho correto
+import logo from "./images/logo.jpg"; // caminho correto
 
 
 export default function Navbar() {

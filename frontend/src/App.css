@@ -57,7 +57,8 @@
 }
 
 .logo-navbar {
-    height: 60px;
+    height: 150px;
+    width: auto;
     margin-bottom: 0; /* Retirado para evitar margens extras */
 }
 
