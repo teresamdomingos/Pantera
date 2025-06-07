@@ -75,11 +75,23 @@ class Pontuacao_Jogo (models.Model):
     class Meta:
         unique_together = ('jogo', 'equipa')
 
-class Cesto (models.Model):
+class Cesto(models.Model):
+    TIPO_CESTO_CHOICES = [
+        ('penalti', 'Penálti'),
+        ('curto', 'Curto'),
+        ('longo', 'Longo'),
+        ('passada', 'Passada'),
+    ]
+
     jogo = models.ForeignKey(Jogo, on_delete=models.CASCADE)
     equipa = models.ForeignKey(Equipa, on_delete=models.CASCADE)
-    atleta = models.ForeignKey(Atleta, on_delete=models.CASCADE)
+    atleta = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name="cestos_marcados")
+    tipo = models.CharField(max_length=10, choices=TIPO_CESTO_CHOICES)
+    #timestamp = models.DateTimeField(auto_now_add=True)  # opcional: regista quando foi o cesto
+    atleta_assistência = models.ForeignKey(Atleta, on_delete=models.CASCADE, null=True, blank=True, related_name="assistencias_dadas")
 
+    def __str__(self):
+        return f"{self.atleta} - {self.get_tipo_display()} em {self.jogo}"
 
 class Atletas_Jogo (models.Model):
     jogo = models.ForeignKey(Jogo, on_delete=models.CASCADE)

@@ -16,8 +16,11 @@ export default function Jogos() {
 
       {/*/ Botão para criar novo jogo*/}
       <Link to="/novo-jogo">
-        <button style={{ marginBottom: "1rem" }}>Criar Novo Jogo</button>
+        <button className="btn btn-secondary mb-3">Criar Novo Jogo</button>
       </Link>
+
+
+
 
       <ul>
         {jogos.map(j => (
