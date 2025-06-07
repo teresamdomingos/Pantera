@@ -9,7 +9,7 @@ class ClubeAdmin(admin.ModelAdmin):
 
 @admin.register(Equipa)
 class EquipaAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nome', 'letra', 'clube']
+    list_display = ['id', 'nome', 'letra', 'clube', 'divisao']
     search_fields = ['nome']
     list_filter = ['clube']
 

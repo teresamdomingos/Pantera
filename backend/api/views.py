@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
-from .models import Atleta,  Jogo, Clube
-from .serializers import AtletaSerializer, JogoSerializer, ClubeSerializer
+from .models import Atleta,  Jogo, Clube, Equipa
+from .serializers import AtletaSerializer, EquipaSerializer, JogoSerializer, ClubeSerializer
 
 class AtletaListCreate(generics.ListCreateAPIView):
     queryset = Atleta.objects.all()
@@ -14,3 +15,9 @@ class JogoListCreate(generics.ListCreateAPIView):
 class ClubeListCreate(generics.ListCreateAPIView):
     queryset = Clube.objects.all()
     serializer_class = ClubeSerializer
+
+class EquipaList(generics.ListAPIView):
+    queryset = Equipa.objects.all()
+    serializer_class = EquipaSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['divisao']  # Permite filtrar pela coluna divisao

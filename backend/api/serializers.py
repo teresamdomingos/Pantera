@@ -16,17 +16,26 @@ class AtletaSerializer(serializers.ModelSerializer):
     
 
 class JogoSerializer(serializers.ModelSerializer):
+    equipa_casa_nome = serializers.CharField(source='equipa_casa.nome', read_only=True)
+    equipa_fora_nome = serializers.CharField(source='equipa_fora.nome', read_only=True)
     local = serializers.SerializerMethodField()
 
     class Meta:
         model = Jogo
-        fields = ['id', 'data', 'equipa_casa', 'equipa_fora', 'local']
+        fields = ['id', 'data', 'equipa_casa', 'equipa_fora', 'equipa_casa_nome', 'equipa_fora_nome', 'local']
 
     def get_local(self, obj):
-        return obj.local  # Isto usa a property definida no model
+        return obj.local
     
 
 class ClubeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clube
         fields = '__all__'
+
+class EquipaSerializer(serializers.ModelSerializer):
+    clube_nome = serializers.CharField(source='clube.nome', read_only=True)
+
+    class Meta:
+        model = Equipa
+        fields = ['id', 'nome', 'letra', 'clube', 'clube_nome', 'divisao']
