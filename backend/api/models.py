@@ -67,7 +67,7 @@ class Jogo (models.Model):
             raise ValidationError("A equipa da casa e a equipa de fora não podem ser a mesma.")
 
 
-class Pontuacao_Jogo (models.Model):
+class Pontuacao_Equipa_Jogo (models.Model):
     jogo = models.ForeignKey(Jogo, on_delete=models.CASCADE)
     equipa = models.ForeignKey(Equipa, on_delete=models.CASCADE)
     pontos = models.IntegerField()

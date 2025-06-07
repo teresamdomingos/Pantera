@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Clube, Equipa, Atleta, Jogo, Pontuacao_Jogo, Cesto, Atletas_Jogo, Atleta_Equipa
+from .models import Clube, Equipa, Atleta, Jogo, Pontuacao_Equipa_Jogo, Cesto, Atletas_Jogo, Atleta_Equipa
 
 @admin.register(Clube)
 class ClubeAdmin(admin.ModelAdmin):
@@ -30,8 +30,8 @@ class JogoAdmin(admin.ModelAdmin):
     list_filter = ['data']
     search_fields = ['equipa_casa__nome', 'equipa_fora__nome']
 
-@admin.register(Pontuacao_Jogo)
-class PontuacaoJogoAdmin(admin.ModelAdmin):
+@admin.register(Pontuacao_Equipa_Jogo)
+class PontuacaoEquipaJogoAdmin(admin.ModelAdmin):
     list_display = ['id', 'jogo', 'equipa', 'pontos']
     list_filter = ['equipa']
 
