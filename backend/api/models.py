@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ValidationError
+from datetime import timedelta
 
 class Clube(models.Model):
     nome = models.CharField(max_length=5)
@@ -51,12 +52,31 @@ class Atleta_Equipa(models.Model):
     
 
 class Jogo (models.Model):
+    STATUS_CHOICES = [
+        ('pendente', 'Pendente'),
+        ('a_decorrer', 'A Decorrer'),
+        ('terminado', 'Terminado'),
+        ('cancelado', 'Cancelado'),
+    ]
+    
     data = models.DateField(blank=True, null=True)
+    hora = models.TimeField(blank=True, null=True)
+
     equipa_casa = models.ForeignKey(Equipa, on_delete=models.CASCADE, related_name="jogos_em_casa")
     equipa_fora = models.ForeignKey(Equipa, on_delete=models.CASCADE, related_name="jogos_fora")
     
+    arbitro_principal = models.CharField(max_length=100, null=True, blank=True)
+    arbitro_secundario = models.CharField(max_length=100, null=True, blank=True)
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
+
+    pontuacao_equipa_casa = models.IntegerField(default=0)
+    pontuacao_equipa_fora = models.IntegerField(default=0)
+
+    tempo_decorrido = models.DurationField(default=timedelta)
+
     def __str__(self):
-        return f"{self.equipa_casa.nome} - {self.equipa_fora.nome}"
+        return f"{self.equipa_casa.nome} - {self.equipa_fora.nome} ({self.data} {self.hora})"
     
     @property
     def local(self):

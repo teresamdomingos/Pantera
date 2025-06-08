@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function NovoJogo() {
   const [equipas, setEquipas] = useState([]);
@@ -7,6 +8,9 @@ export default function NovoJogo() {
   const [data, setData] = useState("");
   const [equipaCasa, setEquipaCasa] = useState("");
   const [equipaFora, setEquipaFora] = useState("");
+  const [hora, setHora] = useState("");
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     fetch("http://localhost:8000/api/equipas/")
@@ -29,12 +33,17 @@ export default function NovoJogo() {
       alert("A equipa casa e a equipa fora não podem ser iguais!");
       return;
     }
+    if (!hora) {
+      alert("Por favor, escolha a hora do jogo.");
+      return;
+    }
 
     fetch("http://localhost:8000/api/jogos/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         data,
+        hora,
         equipa_casa: Number(equipaCasa),
         equipa_fora: Number(equipaFora),
       })
@@ -43,9 +52,11 @@ export default function NovoJogo() {
       if (res.ok) {
         alert("Jogo criado com sucesso!");
         setData("");
+        setHora("");
         setEquipaCasa("");
         setEquipaFora("");
         setDivisaoSelecionada("");
+        navigate("/");
       } else {
         alert("Erro ao criar jogo.");
       }
@@ -65,6 +76,17 @@ export default function NovoJogo() {
               className="form-control"
               value={data}
               onChange={e => setData(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Hora:</label>
+            <input
+              type="time"
+              className="form-control"
+              value={hora}
+              onChange={e => setHora(e.target.value)}
               required
             />
           </div>

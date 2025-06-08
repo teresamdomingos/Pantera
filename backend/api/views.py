@@ -21,3 +21,7 @@ class EquipaList(generics.ListAPIView):
     serializer_class = EquipaSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['divisao']  # Permite filtrar pela coluna divisao
+
+class JogoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Jogo.objects.all()
+    serializer_class = JogoSerializer
