@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function Jogos() {
   const [jogos, setJogos] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     fetch("http://localhost:8000/api/jogos/")
@@ -24,8 +27,18 @@ export default function Jogos() {
 
       <ul>
         {jogos.map(j => (
-          <li key={j.id}>
-            {j.data} | {j.equipa_casa_nome} vs {j.equipa_fora_nome} @ {j.local}
+          <li key={j.id} className="mb-2 d-flex align-items-center justify-content-between">
+            <span>
+              {j.data} | {j.equipa_casa_nome} vs {j.equipa_fora_nome} @ {j.local}
+            </span>
+
+            {/* Botão iniciar jogo */}
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => navigate(`/iniciar-jogo/${j.id}`)}
+            >
+              Iniciar Jogo
+            </button>
           </li>
         ))}
       </ul>

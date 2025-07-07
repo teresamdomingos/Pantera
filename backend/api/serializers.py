@@ -22,7 +22,16 @@ class JogoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Jogo
-        fields = ['id', 'data', 'equipa_casa', 'equipa_fora', 'equipa_casa_nome', 'equipa_fora_nome', 'local']
+        fields = [
+            'id', 'data', 'hora',
+            'equipa_casa', 'equipa_fora',
+            'equipa_casa_nome', 'equipa_fora_nome',
+            'local',
+            'pontuacao_equipa_casa',
+            'pontuacao_equipa_fora',
+            'status',
+            'tempo_decorrido'
+        ]
 
     def get_local(self, obj):
         return obj.local

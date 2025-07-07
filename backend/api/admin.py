@@ -26,9 +26,17 @@ class AtletaEquipaAdmin(admin.ModelAdmin):
 
 @admin.register(Jogo)
 class JogoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'data', 'equipa_casa', 'equipa_fora', 'local']
-    list_filter = ['data']
+    list_display = ['id', 'data', 'hora', 'equipa_casa', 'pontuacao_equipa_casa', 'equipa_fora', 'pontuacao_equipa_fora', 'status', 'tempo_formatado', 'arbitro_principal', 'arbitro_secundario', 'local']
+    list_filter = ['data', 'status']
     search_fields = ['equipa_casa__nome', 'equipa_fora__nome']
+
+    @admin.display(description="Tempo decorrido")
+    def tempo_formatado(self, obj):
+        if obj.tempo_decorrido:
+            minutos = int(obj.tempo_decorrido.total_seconds() // 60)
+            segundos = int(obj.tempo_decorrido.total_seconds() % 60)
+            return f"{minutos}m {segundos}s"
+        return "-"
 
 @admin.register(Pontuacao_Equipa_Jogo)
 class PontuacaoEquipaJogoAdmin(admin.ModelAdmin):

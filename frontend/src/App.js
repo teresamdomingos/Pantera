@@ -6,6 +6,7 @@ import Home from "./templates/Home";
 import Navbar from "./templates/Navbar";
 import NovoJogo from "./templates/NovoJogo";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import IniciarJogo from "./templates/IniciarJogo";
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
           <Route path="/jogos" element={<Jogos />} />
           <Route path="/equipas" element={<Equipas />} />
           <Route path="/atletas" element={<Atletas />} />
-          <Route path="/novo-jogo" element={<NovoJogo />} /> {/* nova rota */}
+          <Route path="/novo-jogo" element={<NovoJogo />} />
+          <Route path="/iniciar-jogo/:id" element={<IniciarJogo />} />{/* nova rota */}
           {/* Podes adicionar rota para "/" com uma homepage se quiseres */}
         </Routes>
       </div>
