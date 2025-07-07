@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Clube, Equipa, Atleta, Jogo, Pontuacao_Equipa_Jogo, Cesto, Atletas_Jogo, Atleta_Equipa
+from .models import Clube, Equipa, Atleta, Jogo, Pontuacao_Equipa_Jogo, Cesto, Atleta_Jogo, Atleta_Equipa
 
 class AtletaSerializer(serializers.ModelSerializer):
     clube_nome = serializers.CharField(source='clube.nome', read_only=True)
