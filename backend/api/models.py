@@ -41,6 +41,7 @@ class Pessoa(models.Model):
     nome = models.CharField(max_length=50)
     apelido = models.CharField(max_length=50)
     data_nascimento = models.DateField()
+    foto_perfil = models.ImageField(upload_to='fotos_perfil/', default='fotos_perfil/pessoa.png')
 
     def __str__(self):
         return f"{self.nome} {self.apelido}"

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Jogos from "./templates/Jogos";
 import Equipas from "./templates/Equipas";
@@ -8,21 +8,21 @@ import Navbar from "./templates/Navbar";
 import NovoJogo from "./templates/NovoJogo";
 import IniciarJogo from "./templates/IniciarJogo";
 import Login from "./templates/Login";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [user, setUser] = useState(null);
 
-  // Tenta recuperar estado do login do localStorage quando a app carrega
   useEffect(() => {
     const role = localStorage.getItem("userRole");
     const token = localStorage.getItem("token");
     const nome = localStorage.getItem("userNome");
+    const foto_perfil = localStorage.getItem("userFoto");
     if (token && role) {
-      setUser({ token, role, nome });
+      setUser({ token, role, nome, foto_perfil});
     }
   }, []);
 
-  // Protege rotas só para presidente
   function PresidenteRoute({ children }) {
     if (!user || user.role !== "presidente") {
       return <Navigate to="/login" />;
@@ -30,12 +30,24 @@ function App() {
     return children;
   }
 
-  return (
-    <Router>
+  // Layout com Navbar (apenas para páginas autenticadas)
+  const AppLayout = () => (
+    <>
       <Navbar user={user} />
       <div style={{ padding: "1rem" }}>
-        <Routes>
-          <Route path="/login" element={<Login onLogin={setUser} />} />
+        <Outlet />
+      </div>
+    </>
+  );
+
+  return (
+    <Router>
+      <Routes>
+        {/* Página de login SEM Navbar */}
+        <Route path="/login" element={<Login onLogin={setUser} />} />
+
+        {/* Rotas com Navbar */}
+        <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/jogos" element={<Jogos />} />
           <Route path="/equipas" element={<Equipas />} />
@@ -49,9 +61,8 @@ function App() {
             }
           />
           <Route path="/iniciar-jogo/:id" element={<IniciarJogo />} />
-          {/* Outras rotas */}
-        </Routes>
-      </div>
+        </Route>
+      </Routes>
     </Router>
   );
 }

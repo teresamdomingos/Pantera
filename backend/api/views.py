@@ -33,12 +33,25 @@ class JogoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Jogo.objects.all()
     serializer_class = JogoSerializer
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def is_presidente(request):
     user = request.user
-    is_pres = hasattr(user, 'pessoa') and hasattr(user.pessoa, 'presidente')
-    nome = user.pessoa.nome if hasattr(user, 'pessoa') else ""
-    return Response({"is_presidente": is_pres,
-                     "nome": nome
-                     })
+
+    pessoa = getattr(user, 'pessoa', None)
+
+    is_pres = hasattr(user, 'pessoa')  # apenas verifica se tem pessoa
+    nome = ""
+    foto_perfil = None
+
+    if pessoa:
+        nome = pessoa.nome
+        if pessoa.foto_perfil and hasattr(pessoa.foto_perfil, 'url'):
+            foto_perfil = pessoa.foto_perfil.url
+
+    return Response({
+        "is_presidente": is_pres,
+        "nome": nome,
+        "foto_perfil": foto_perfil
+    })

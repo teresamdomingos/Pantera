@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Clube, Equipa, Atleta, Jogo, Pontuacao_Equipa_Jogo, Cesto, Atleta_Jogo, Atleta_Equipa
+from .models import Clube, Equipa, Atleta, Jogo, Pontuacao_Equipa_Jogo, Cesto, Atleta_Jogo, Atleta_Equipa, Pessoa
 
 class AtletaSerializer(serializers.ModelSerializer):
     clube_nome = serializers.CharField(source='clube.nome', read_only=True)
@@ -48,3 +48,11 @@ class EquipaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipa
         fields = ['id', 'nome', 'letra', 'clube', 'clube_nome', 'divisao']
+
+
+class PessoaSerializer(serializers.ModelSerializer):
+    foto_perfil = serializers.ImageField()
+
+    class Meta:
+        model = Pessoa
+        fields = ['id', 'username', 'nome', 'role', 'foto_perfil']

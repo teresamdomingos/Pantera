@@ -110,3 +110,62 @@
 .itens-nav a:hover {
     color: #ff8c00;
 }
+
+.logo-navbar {
+  height: 65px;
+  margin: 10px 0;
+}
+
+.itens-nav {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.itens-nav .nav-link {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  margin: 0 15px;
+  color: white;
+  font-weight: bold;
+}
+
+.itens-nav .nav-link:hover {
+  color: #ff8c00;
+}
+
+.user-name {
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
+}
+
+.avatar-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.dropdown-menu {
+  min-width: 160px;
+}
+
+.user-avatar.dropdown:hover > .dropdown-menu {
+  display: block !important;
+  margin-top: 0.5rem;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+  right: 0;       /* força alinhar o dropdown à direita */
+  left: auto;     /* cancela o posicionamento padrão à esquerda */
+}
+
+.seta_dropdown::after {
+  border-top-color: black !important;
+}

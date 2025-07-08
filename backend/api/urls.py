@@ -5,6 +5,7 @@ from rest_framework_simplejwt.views import (
 )
 from .views import AtletaListCreate, EquipaList, JogoListCreate, ClubeListCreate, JogoDetail, is_presidente
 
+
 urlpatterns = [
     path('atletas/', AtletaListCreate.as_view()),
     path('jogos/', JogoListCreate.as_view()),
@@ -17,3 +18,5 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # login (obter token)
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # renovar token
 ]
+
+
